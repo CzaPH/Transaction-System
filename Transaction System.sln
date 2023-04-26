@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33530.505
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transaction System", "Transaction System\Transaction System.csproj", "{8EFF7C72-FADD-405E-A581-000522750E99}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8EFF7C72-FADD-405E-A581-000522750E99}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EFF7C72-FADD-405E-A581-000522750E99}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EFF7C72-FADD-405E-A581-000522750E99}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EFF7C72-FADD-405E-A581-000522750E99}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D513CF5F-EB60-4082-A2DB-F6109550A967}
+	EndGlobalSection
+EndGlobal
