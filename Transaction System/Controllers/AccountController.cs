@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Transaction_System.UseCases.UserUseCase.Commands.AccountCommand;
-
+using Transaction_System.UseCases.UserUseCase.Queries.AccountQuery;
 
 namespace Transaction_System.Controllers
 {
@@ -28,5 +28,22 @@ namespace Transaction_System.Controllers
                 throw;
             }
         }
+            [HttpGet]
+            public async Task<IActionResult> Query()
+            {
+                var query = new GetAccount.Query();
+                var results = await _mediator.Send(query);
+
+                return Ok(results);
+            }
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> Query(int Id)
+        {
+            var query = new GetAccountById.Query(Id);
+            var results = await _mediator.Send(query);
+
+            return Ok(results);
+        }
+
     }
 }

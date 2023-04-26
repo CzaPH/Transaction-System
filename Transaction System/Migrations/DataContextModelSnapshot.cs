@@ -125,6 +125,9 @@ namespace Transaction_System.Migrations
                     b.Property<int>("AccountId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("AccountId1")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
@@ -136,7 +139,8 @@ namespace Transaction_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("FromId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("FromId");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -150,6 +154,8 @@ namespace Transaction_System.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
+
+                    b.HasIndex("AccountId1");
 
                     b.HasIndex("FromId");
 
@@ -247,6 +253,10 @@ namespace Transaction_System.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Transaction_System.Domain.Account", null)
+                        .WithMany("Transactions")
+                        .HasForeignKey("AccountId1");
+
                     b.HasOne("Transaction_System.Domain.Account", "From")
                         .WithMany()
                         .HasForeignKey("FromId")
@@ -267,6 +277,11 @@ namespace Transaction_System.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Transaction_System.Domain.Account", b =>
+                {
+                    b.Navigation("Transactions");
                 });
 
             modelBuilder.Entity("Transaction_System.Domain.User", b =>

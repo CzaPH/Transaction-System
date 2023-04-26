@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Transaction_System.UseCases.UserUseCase.Commands.Authentication;
 using Transaction_System.UseCases.UserUseCase.Commands.TransactionCommand;
+using Transaction_System.UseCases.UserUseCase.Queries.AccountQuery;
+using Transaction_System.UseCases.UserUseCase.Queries.TransactionQuery;
 
 namespace Transaction_System.Controllers
 {
@@ -29,6 +31,22 @@ namespace Transaction_System.Controllers
                 throw;
             }
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> Query()
+        {
+            var query = new GetTransaction.Query();
+            var results = await _mediator.Send(query);
+
+            return Ok(results);
+        }
+        [HttpGet("{Id})")]
+        public async Task<IActionResult> Query(int Id)
+        {
+            var query = new GetTransactionById.Query(Id);
+            var results = await _mediator.Send(query);
+
+            return Ok(results);
         }
     }
 }
