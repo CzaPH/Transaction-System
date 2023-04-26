@@ -8,20 +8,21 @@ namespace Transaction_System.UseCases.UserUseCase.Commands.UpdateUserCredentials
 {
     public class DeleteUserCommand
     {
-        public record Command(int Id) : IRequest;
-
-        public record Handler(DataContext context, IMapper mapper) : IRequestHandler<Command>
+        public record Command(int Id) : IRequest
         {
-            public async Task Handle(Command request, CancellationToken cancellationToken)
+            public record Handler(DataContext context, IMapper mapper) : IRequestHandler<Command>
             {
-                var user = await context.Users.FirstOrDefaultAsync(user => user.Id == request.Id);
-                if (user is not null)
+                public async Task Handle(Command request, CancellationToken cancellationToken)
                 {
-                    user.IsDeleted = true;
-                    await context.SaveChangesAsync();
+                    var user = await context.Users.FirstOrDefaultAsync(user => user.Id == request.Id);
+                    if (user is not null)
+                    {
+                        user.IsDeleted = true;
+                        await context.SaveChangesAsync();
+                    }
                 }
-            }
 
+            }
         }
     }
 }

@@ -5,9 +5,9 @@ using ServiceStack.DataAnnotations;
 using Transaction_System.Data;
 using Transaction_System.Domain;
 using Transaction_System.UseCases.UserUseCase.Commands.UpdateUserCredential;
+using Transaction_System.UseCases.UserUseCase.Commands.UpdateUserCredentials;
 using Transaction_System.UseCases.UserUseCase.Queries;
 using static Transaction_System.UseCases.UserUseCase.Commands.UpdateUserCredential.UpdateUserCommand;
-using static Transaction_System.UseCases.UserUseCase.Commands.UpdateUserCredentials.DeleteUserCommand;
 
 namespace Transaction_System.Controllers
 {
@@ -52,7 +52,7 @@ namespace Transaction_System.Controllers
             }
         }
         [HttpDelete]
-        public async Task<IActionResult> RemoveUser([FromBody] Command command)
+        public async Task<IActionResult> RemoveUser([FromBody] DeleteUserCommand.Command command)
         {
             try
             {
