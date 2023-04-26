@@ -9,10 +9,10 @@ namespace Transaction_System.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class Auth : ControllerBase
+    public class AuthController : ControllerBase
     {
         private readonly IMediator _mediator;
-        public Auth(IMediator mediator)
+        public AuthController(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -29,6 +29,12 @@ namespace Transaction_System.Controllers
         {
             var result = await _mediator.Send(command);
             return Ok(result);
+        }
+        [Authorize]
+        [HttpPost("signout")]
+        public IActionResult Logout()
+        {
+            return Ok("test");
         }
     }
 }

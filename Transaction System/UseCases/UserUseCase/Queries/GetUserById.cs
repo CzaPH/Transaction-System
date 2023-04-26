@@ -3,6 +3,7 @@ using Azure.Core;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Transaction_System.Data;
+using Transaction_System.Shared.Enum;
 
 namespace Transaction_System.UseCases.UserUseCase.Queries
 {
@@ -12,7 +13,7 @@ namespace Transaction_System.UseCases.UserUseCase.Queries
         public record Query(int Id) : IRequest<IEnumerable<Result>>;
 
         //Get user response
-        public record Result(int id, string Fullname);
+        public record Result(int Id, string Fullname, string Picture, bool IsDeleted, UserType UserType);
 
         public record Handler(DataContext context, IMapper mapper) : IRequestHandler<Query, IEnumerable<Result>>
         {
