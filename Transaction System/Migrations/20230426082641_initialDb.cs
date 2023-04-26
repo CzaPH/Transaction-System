@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Transaction_System.Migrations
 {
     /// <inheritdoc />
-    public partial class initialdb : Migration
+    public partial class initialDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -34,8 +34,7 @@ namespace Transaction_System.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Fullname = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Picture = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserType = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -55,8 +54,8 @@ namespace Transaction_System.Migrations
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Type = table.Column<int>(type: "int", nullable: false),
-                    AccountId = table.Column<int>(type: "int", nullable: false),
-                    FromId = table.Column<int>(type: "int", nullable: false),
+                    ToAccountId = table.Column<int>(type: "int", nullable: false),
+                    FromAccountId = table.Column<int>(type: "int", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
@@ -65,14 +64,14 @@ namespace Transaction_System.Migrations
                 {
                     table.PrimaryKey("PK_Transactions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Transactions_Accounts_AccountId",
-                        column: x => x.AccountId,
+                        name: "FK_Transactions_Accounts_FromAccountId",
+                        column: x => x.FromAccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Transactions_Accounts_FromId",
-                        column: x => x.FromId,
+                        name: "FK_Transactions_Accounts_ToAccountId",
+                        column: x => x.ToAccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -86,8 +85,7 @@ namespace Transaction_System.Migrations
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    LastModifiedDate = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -169,14 +167,14 @@ namespace Transaction_System.Migrations
                 column: "TransactionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_AccountId",
+                name: "IX_Transactions_FromAccountId",
                 table: "Transactions",
-                column: "AccountId");
+                column: "FromAccountId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Transactions_FromId",
+                name: "IX_Transactions_ToAccountId",
                 table: "Transactions",
-                column: "FromId");
+                column: "ToAccountId");
         }
 
         /// <inheritdoc />

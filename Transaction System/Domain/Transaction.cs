@@ -12,13 +12,13 @@ namespace Transaction_System.Domain
         public TransactionType Type { get; set; }
 
         
-        [ForeignKey(nameof(Account))]
-        public int AccountId { get; set; }
-        public virtual Account Account { get; set; }
+        [ForeignKey(nameof(To))]
+        public int ToAccountId { get; set; }
+        public virtual Account To { get; set; }
 
         
         [ForeignKey(nameof(From))]
-        public int FromId { get; set; }
+        public int FromAccountId { get; set; }
         public virtual Account From { get; set; }
 
     }

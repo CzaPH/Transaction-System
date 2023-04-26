@@ -25,8 +25,8 @@ namespace Transaction_System.UseCases.UserUseCase.Commands.TransactionCommand
                         Description = request.Description,
                         Amount = request.Amount,
                         Type = request.Type,
-                        AccountId = request.AccountId,
-                        FromId = request.AccountId
+                        ToAccountId = request.AccountId,
+                        FromAccountId = request.AccountId
                     };
                     await context.AddAsync(newTransaction);
                     await context.SaveChangesAsync();

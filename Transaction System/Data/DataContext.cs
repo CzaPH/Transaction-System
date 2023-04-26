@@ -15,8 +15,8 @@ namespace Transaction_System.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
            // modelBuilder.Entity<UserCredential>().HasOne(x => x.User).WithOne().HasForeignKey("Id");
-            modelBuilder.Entity<Account>().HasMany<Transaction>().WithOne(t => t.Account).OnDelete(DeleteBehavior.Restrict);
-            modelBuilder.Entity<Account>().HasMany<Transaction>().WithOne(t => t.From).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Account>().HasMany(x => x.ToTransactions).WithOne(t => t.To).OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Account>().HasMany(x => x.FromTransactions).WithOne(t => t.From).OnDelete(DeleteBehavior.Restrict);
         }
         public DbSet<Account> Accounts { get; set; }
         public DbSet<ApprovalStatus> ApprovalStatus { get; set; }

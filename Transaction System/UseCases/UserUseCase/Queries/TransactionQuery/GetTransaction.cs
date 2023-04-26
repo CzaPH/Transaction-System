@@ -12,7 +12,7 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.TransactionQuery
         public record Query : IRequest<IEnumerable<Result>>;
 
         //Get user response
-        public record Result(int Id, string Description, decimal Amount, TransactionType Type, int AccountId, int FromId, DateTime CreatedDate, bool IsDeleted);
+        public record Result(int Id, string Description, decimal Amount, TransactionType Type, int ToAccountId, int FromAccountId, DateTime CreatedDate, bool IsDeleted);
 
         public record Handler(DataContext context, IMapper mapper) : IRequestHandler<Query, IEnumerable<Result>>
         {

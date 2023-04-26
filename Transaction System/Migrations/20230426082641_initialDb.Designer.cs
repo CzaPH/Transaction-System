@@ -12,8 +12,8 @@ using Transaction_System.Data;
 namespace Transaction_System.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230425072034_RemovePassandUsernameinUser")]
-    partial class RemovePassandUsernameinUser
+    [Migration("20230426082641_initialDb")]
+    partial class initialDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,9 +125,6 @@ namespace Transaction_System.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccountId")
-                        .HasColumnType("int");
-
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
 
@@ -138,7 +135,7 @@ namespace Transaction_System.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("FromId")
+                    b.Property<int>("FromAccountId")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -147,14 +144,17 @@ namespace Transaction_System.Migrations
                     b.Property<DateTime>("LastModifiedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("ToAccountId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Type")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AccountId");
+                    b.HasIndex("FromAccountId");
 
-                    b.HasIndex("FromId");
+                    b.HasIndex("ToAccountId");
 
                     b.ToTable("Transactions");
                 });
@@ -244,21 +244,21 @@ namespace Transaction_System.Migrations
 
             modelBuilder.Entity("Transaction_System.Domain.Transaction", b =>
                 {
-                    b.HasOne("Transaction_System.Domain.Account", "Account")
-                        .WithMany()
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Transaction_System.Domain.Account", "From")
-                        .WithMany()
-                        .HasForeignKey("FromId")
+                        .WithMany("FromTransactions")
+                        .HasForeignKey("FromAccountId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Account");
+                    b.HasOne("Transaction_System.Domain.Account", "To")
+                        .WithMany("ToTransactions")
+                        .HasForeignKey("ToAccountId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("From");
+
+                    b.Navigation("To");
                 });
 
             modelBuilder.Entity("Transaction_System.Domain.UserCredential", b =>
@@ -270,6 +270,13 @@ namespace Transaction_System.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Transaction_System.Domain.Account", b =>
+                {
+                    b.Navigation("FromTransactions");
+
+                    b.Navigation("ToTransactions");
                 });
 
             modelBuilder.Entity("Transaction_System.Domain.User", b =>

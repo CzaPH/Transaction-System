@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Transactions;
 using Transaction_System.Data;
 using Transaction_System.Shared.Enum;
+using Transaction_System.UseCases.UserUseCase.Queries.TransactionQuery;
 
 namespace Transaction_System.UseCases.UserUseCase.Queries.AccountQuery
 {
@@ -11,20 +12,31 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.AccountQuery
     {
         public record Query : IRequest<IEnumerable<Result>>;
 
+        public record Result(int Id, string Name, DateTime CreatedDate, bool IsDeleted, ICollection<TransactionResult> ToTransactions, ICollection<TransactionResult> FromTransactions);
 
-        public record Result(int Id, string Name, DateTime CreatedDate, bool IsDeleted, ICollection<Result> Transactions);
+        public record TransactionResult(int Id, string Description, decimal Amount, TransactionType Type, DateTime CreatedDate, bool IsDeleted);
 
-        public record Handler(DataContext context, IMapper mapper) : IRequestHandler<Query, IEnumerable<Result>>
+        public class Handler : IRequestHandler<Query, IEnumerable<Result>>
         {
+            private readonly DataContext _context;
+            private readonly IMapper _mapper;
+
+            public Handler(DataContext context, IMapper mapper)
+            {
+                _context = context;
+                _mapper = mapper;
+            }
+
             public async Task<IEnumerable<Result>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var results = await context.Accounts.Include(x => x.Transactions).Where(u => u.IsDeleted == false).ToListAsync(cancellationToken);
+                var accounts = await _context.Accounts
+                    .Include(a => a.ToTransactions)
+                    .ToListAsync(cancellationToken);
 
-                var mapResults = mapper.Map<IEnumerable<Result>>(results);
+                var results = _mapper.Map<IEnumerable<Result>>(accounts);
 
-                return mapResults;
+                return results;
             }
         }
     }
 }
-

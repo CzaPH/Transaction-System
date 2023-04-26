@@ -1,9 +1,9 @@
 ﻿using AutoMapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Transaction_System.Data;
 using Transaction_System.Shared.Enum;
+
 
 namespace Transaction_System.UseCases.UserUseCase.Queries.TransactionQuery
 {
@@ -12,7 +12,7 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.TransactionQuery
         public record Query(int Id) : IRequest<IEnumerable<Result>>;
 
         //Get user response
-        public record Result(int Id, string Description, decimal Amount, TransactionType Type, int AccountId, int FromId, DateTime CreatedDate, bool IsDeleted);
+        public record Result(int Id, string Description, decimal Amount, TransactionType Type, int ToAccountId, int FromAccountId, DateTime CreatedDate, bool IsDeleted);
 
         public record Handler(DataContext context, IMapper mapper) : IRequestHandler<Query, IEnumerable<Result>>
         {
