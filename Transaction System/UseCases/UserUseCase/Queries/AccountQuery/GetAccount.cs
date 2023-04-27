@@ -31,6 +31,7 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.AccountQuery
             {
                 var accounts = await _context.Accounts
                     .Include(a => a.ToTransactions)
+                    .Include(a => a.FromTransactions)
                     .ToListAsync(cancellationToken);
 
                 var results = _mapper.Map<IEnumerable<Result>>(accounts);

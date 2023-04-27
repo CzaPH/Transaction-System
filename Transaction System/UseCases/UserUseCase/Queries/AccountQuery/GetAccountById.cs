@@ -19,7 +19,9 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.AccountQuery
         {
             public async Task<IEnumerable<Result>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var result = await context.Accounts.Include(a => a.ToTransactions)
+                var result = await context.Accounts
+                    .Include(a => a.ToTransactions)
+                    .Include(a => a.FromTransactions)
                     .Where(x => x.Id == request.Id)
                     .ToListAsync(cancellationToken);
                 if (result is null || !result.Any())

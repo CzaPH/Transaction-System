@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Transaction_System.UseCases.UserUseCase.Commands.AccountCommand;
 using Transaction_System.UseCases.UserUseCase.Commands.Authentication;
 using Transaction_System.UseCases.UserUseCase.Commands.TransactionCommand;
 using Transaction_System.UseCases.UserUseCase.Queries.AccountQuery;
@@ -47,6 +48,34 @@ namespace Transaction_System.Controllers
             var results = await _mediator.Send(query);
 
             return Ok(results);
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateTransaction([FromBody] UpdateTransaction.command command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        [HttpDelete]
+        public async Task<IActionResult> RemoveTransaction([FromBody] RemoveTransaction.command command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

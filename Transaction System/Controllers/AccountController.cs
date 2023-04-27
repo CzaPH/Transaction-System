@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Transaction_System.UseCases.UserUseCase.Commands.AccountCommand;
+using Transaction_System.UseCases.UserUseCase.Commands.UpdateUserCredentials;
 using Transaction_System.UseCases.UserUseCase.Queries.AccountQuery;
+using static Transaction_System.UseCases.UserUseCase.Commands.UpdateUserCredential.UpdateUserCommand;
 
 namespace Transaction_System.Controllers
 {
@@ -28,14 +30,14 @@ namespace Transaction_System.Controllers
                 throw;
             }
         }
-            [HttpGet]
-            public async Task<IActionResult> Query()
-            {
-                var query = new GetAccount.Query();
-                var results = await _mediator.Send(query);
+        [HttpGet]
+        public async Task<IActionResult> Query()
+        {
+            var query = new GetAccount.Query();
+            var results = await _mediator.Send(query);
 
-                return Ok(results);
-            }
+            return Ok(results);
+        }
         [HttpGet("{Id}")]
         public async Task<IActionResult> Query(int Id)
         {
@@ -44,6 +46,35 @@ namespace Transaction_System.Controllers
 
             return Ok(results);
         }
+        [HttpPut]
+        public async Task<IActionResult> UpdateAccount([FromBody] UpdateAccount.command command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        [HttpDelete]
+        public async Task<IActionResult> RemoveAccount([FromBody] RemoveAccount.command command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
 
     }
+
 }
