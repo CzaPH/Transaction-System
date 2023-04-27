@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Transaction_System.Data;
 
@@ -11,9 +12,11 @@ using Transaction_System.Data;
 namespace Transaction_System.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230427063306_modifyTableTransaction")]
+    partial class modifyTableTransaction
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -132,6 +135,7 @@ namespace Transaction_System.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("FromAccountId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -241,7 +245,8 @@ namespace Transaction_System.Migrations
                     b.HasOne("Transaction_System.Domain.Account", "From")
                         .WithMany("FromTransactions")
                         .HasForeignKey("FromAccountId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.HasOne("Transaction_System.Domain.Account", "To")
                         .WithMany("ToTransactions")

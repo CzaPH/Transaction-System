@@ -13,13 +13,13 @@ namespace Transaction_System.Domain
 
         
         [ForeignKey(nameof(To))]
-        public int ToAccountId { get; set; }
-        public virtual Account To { get; set; }
+        public int? ToAccountId { get; set; }
+        public virtual Account? To { get; set; }
 
         
         [ForeignKey(nameof(From))]
-        public int FromAccountId { get; set; }
-        public virtual Account From { get; set; }
+        public int? FromAccountId { get; set; }
+        public virtual Account? From { get; set; }
 
     }
 }

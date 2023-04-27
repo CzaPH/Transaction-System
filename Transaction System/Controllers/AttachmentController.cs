@@ -1,6 +1,8 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Transaction_System.UseCases.UserUseCase.Commands.AccountCommand;
+using Transaction_System.UseCases.UserUseCase.Commands.ApprovedStatusCommand;
 using Transaction_System.UseCases.UserUseCase.Commands.AttachmentCommand;
 using Transaction_System.UseCases.UserUseCase.Queries.AttachmentQuery;
 
@@ -47,6 +49,34 @@ namespace Transaction_System.Controllers
             var results = await _mediator.Send(query);
 
             return Ok(results);
+        }
+        [HttpPut]
+        public async Task<IActionResult> UpdateAttachment([FromBody] UpdateAttachment.command command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        [HttpDelete]
+        public async Task<IActionResult> RemoveAttachment([FromBody] RemoveAttachment.command command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
         }
     }
 }

@@ -47,5 +47,33 @@ namespace Transaction_System.Controllers
 
             return Ok(results);
         }
+        [HttpPut]
+        public async Task<IActionResult> UpdateApprovedStatus([FromBody] UpdateApprovedStatus.command command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+        [HttpDelete]
+        public async Task<IActionResult> RemoveApprovedStatus([FromBody] RemoveApprovedStatus.command command)
+        {
+            try
+            {
+                await _mediator.Send(command);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
     }
 }

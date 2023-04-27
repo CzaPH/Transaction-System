@@ -1,3 +1,4 @@
+﻿
 ﻿using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,8 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.TransactionQuery
     {
         public record Query : IRequest<IEnumerable<Result>>;
 
-        //Get user response
+        //Get Transaction response
         public record Result(int Id, string Description, decimal Amount, TransactionType Type, int ToAccountId, int FromAccountId, DateTime CreatedDate, bool IsDeleted);
-
         public record Handler(DataContext context, IMapper mapper) : IRequestHandler<Query, IEnumerable<Result>>
         {
             public async Task<IEnumerable<Result>> Handle(Query request, CancellationToken cancellationToken)
