@@ -21,5 +21,8 @@ namespace Transaction_System.Domain
         public int? FromAccountId { get; set; }
         public virtual Account? From { get; set; }
 
+        public ICollection<Attachment> Attachments { get; set;  }
+       public ICollection<ApprovalStatus> ApprovedStatus { get; set; }
+
     }
 }
