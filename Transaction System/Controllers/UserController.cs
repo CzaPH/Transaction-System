@@ -51,12 +51,12 @@ namespace Transaction_System.Controllers
                 throw;
             }
         }
-        [HttpDelete]
-        public async Task<IActionResult> RemoveUser([FromBody] DeleteUserCommand.Command command)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> RemoveUser(int Id)
         {
             try
             {
-                await _mediator.Send(command);
+                await _mediator.Send(new DeleteUserCommand.Command(Id));
                 return Ok();
             }
             catch (Exception e)

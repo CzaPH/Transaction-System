@@ -63,12 +63,12 @@ namespace Transaction_System.Controllers
                 throw;
             }
         }
-        [HttpDelete]
-        public async Task<IActionResult> RemoveTransaction([FromBody] RemoveTransaction.command command)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> RemoveTransaction(int Id)
         {
             try
             {
-                await _mediator.Send(command);
+                await _mediator.Send(new RemoveTransaction.command(Id));
                 return Ok();
             }
             catch (Exception e)

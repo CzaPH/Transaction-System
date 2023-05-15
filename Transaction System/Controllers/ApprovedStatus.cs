@@ -61,12 +61,12 @@ namespace Transaction_System.Controllers
                 throw;
             }
         }
-        [HttpDelete]
-        public async Task<IActionResult> RemoveApprovedStatus([FromBody] RemoveApprovedStatus.command command)
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> RemoveApprovedStatus(int Id)
         {
             try
             {
-                await _mediator.Send(command);
+                await _mediator.Send(new RemoveApprovedStatus.command(Id));
                 return Ok();
             }
             catch (Exception e)
