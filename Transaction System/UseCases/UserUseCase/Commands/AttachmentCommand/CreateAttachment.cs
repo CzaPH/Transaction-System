@@ -13,7 +13,7 @@ namespace Transaction_System.UseCases.UserUseCase.Commands.AttachmentCommand
     {
         public record command : IRequest
         {
-            public int Id { get; set; }
+           // public int Id { get; set; }
             public string ImageUrl { get; set; }
             public int TransactionId { get; set; }
         };

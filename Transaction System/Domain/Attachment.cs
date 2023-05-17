@@ -6,6 +6,6 @@ namespace Transaction_System.Domain
     {
         public string? ImageUrl { get; set; }
         public int TransactionId { get; set; }
-        public Transaction? Transaction { get; set; }
+        public virtual Transaction Transaction { get; set; }
     }
 }

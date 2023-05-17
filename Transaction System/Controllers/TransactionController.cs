@@ -19,7 +19,7 @@ namespace Transaction_System.Controllers
             _mediator = mediator;
         }
         [HttpPost]
-        public async Task<IActionResult> CreateTransaction([FromBody] CreateTransaction.command command)
+        public async Task<IActionResult> CreateTransaction([FromBody] CreateTransaction.Command command)
         {
             try
             {

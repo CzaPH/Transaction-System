@@ -10,19 +10,20 @@ namespace Transaction_System.Domain
         public decimal Amount { get; set; }
 
         public TransactionType Type { get; set; }
+        public int AttachmentId { get; set; }
+        public virtual Attachment? Attachment { get; set; }
 
-        
+
         [ForeignKey(nameof(To))]
         public int? ToAccountId { get; set; }
         public virtual Account? To { get; set; }
 
-        
+
         [ForeignKey(nameof(From))]
         public int? FromAccountId { get; set; }
         public virtual Account? From { get; set; }
 
-        public ICollection<Attachment> Attachments { get; set;  }
-       public ICollection<ApprovalStatus> ApprovedStatus { get; set; }
-
+        public virtual ICollection<Attachment>? Attachments { get; set; }
+        public virtual ICollection<ApprovalStatus>? ApprovedStatus { get; set; }
     }
 }
