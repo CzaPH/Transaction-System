@@ -65,12 +65,12 @@ namespace Transaction_System.Controllers
                 throw;
             }
         }
-        [HttpDelete("{Id}")]
-        public async Task<IActionResult> RemoveAttachment(int Id)
+        [HttpDelete("{TransactionId}")]
+        public async Task<IActionResult> RemoveAttachment(int TransactionId)
         {
             try
             {
-                await _mediator.Send(new RemoveAttachment.command(Id));
+                await _mediator.Send(new RemoveAttachment.command(TransactionId));
                 return Ok();
             }
             catch (Exception e)
