@@ -42,14 +42,15 @@ namespace Transaction_System.Controllers
 
             return Ok(results);
         }
-        [HttpGet("{Id}")]
-        public async Task<IActionResult> Query(int Id)
+        [HttpGet("{TransactionId}")]
+        public async Task<IActionResult> Query(int TransactionId)
         {
-            var query = new GetAttachmentById.Query(Id);
+            var query = new GetAttachmentById.Query(TransactionId);
             var results = await _mediator.Send(query);
 
             return Ok(results);
         }
+
         [HttpPut]
         public async Task<IActionResult> UpdateAttachment([FromBody] UpdateAttachment.command command)
         {

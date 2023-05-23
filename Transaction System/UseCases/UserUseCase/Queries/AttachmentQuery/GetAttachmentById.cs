@@ -8,7 +8,7 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.AttachmentQuery
 {
     public class GetAttachmentById
     {
-        public record Query(int Id) : IRequest<IEnumerable<Result>>;
+        public record Query(int TransactionId) : IRequest<IEnumerable<Result>>;
 
         public record Result(int Id, string ImageUrl, int TransactionId, DateTime CreatedDate, bool IsDeleted);
 
@@ -16,17 +16,18 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.AttachmentQuery
         {
             public async Task<IEnumerable<Result>> Handle(Query request, CancellationToken cancellationToken)
             {
-                var result = await context.Attachment
-                    .Where(x => x.Id == request.Id)
+                var results = await context.Attachment
+                    .Where(x => x.TransactionId == request.TransactionId)
                     .ToListAsync(cancellationToken);
-                if (result is null || !result.Any())
+
+                if (results.Count == 0)
                 {
-                    throw new Exception($"Id '{request.Id}' is not existing.");
+                    throw new Exception($"Attachments for TransactionId '{request.TransactionId}' do not exist.");
                 }
 
-                var mapResult = mapper.Map<IEnumerable<Result>>(result);
+                var mapResults = mapper.Map<IEnumerable<Result>>(results);
 
-                return mapResult;
+                return mapResults;
             }
         }
     }

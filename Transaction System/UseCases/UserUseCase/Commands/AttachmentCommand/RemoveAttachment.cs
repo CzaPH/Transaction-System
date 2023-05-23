@@ -13,10 +13,10 @@ namespace Transaction_System.UseCases.UserUseCase.Commands.AttachmentCommand
             {
                 public async Task Handle(command request, CancellationToken cancellationToken)
                 {
-                    var account = await context.Attachment.FirstOrDefaultAsync(x => x.Id == request.Id);
-                    if (account is not null)
+                    var attachment = await context.Attachment.FirstOrDefaultAsync(x => x.Id == request.Id);
+                    if (attachment is not null)
                     {
-                        account.IsDeleted = true;
+                        attachment.IsDeleted = true;
                         await context.SaveChangesAsync();
                     }
                 }

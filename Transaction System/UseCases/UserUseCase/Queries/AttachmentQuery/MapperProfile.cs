@@ -9,6 +9,7 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.AttachmentQuery
         {
             CreateMap<Attachment, GetAttachment.Result>();
             CreateMap<Attachment, GetAttachmentById.Result>();
+             
         }
     }
 }
