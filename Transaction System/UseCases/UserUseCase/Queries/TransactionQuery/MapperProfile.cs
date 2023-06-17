@@ -9,9 +9,11 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.TransactionQuery
         {
             CreateMap<Transaction, GetTransaction.Result>();
             CreateMap<Transaction, GetTransactionById.Result>();
-                
+            CreateMap<Attachment, GetTransactionById.AttachmentResult>(); // Add this mapping
+            CreateMap<Attachment, GetTransaction.AttachmentResult>(); // Add this mapping if you want to include transaction
         }
     }
+
 
 }
 

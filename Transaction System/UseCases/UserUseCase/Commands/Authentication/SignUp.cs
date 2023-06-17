@@ -17,7 +17,7 @@ namespace Transaction_System.UseCases.UserUseCase.Commands.Authentication
 {
     public static class SignUp
     {
-        public record SignUpCommand(string Name, string Username, string Password) : IRequest<IEnumerable<signUpResult>>;
+        public record SignUpCommand(string Name, string Username, string Password, int Usertype) : IRequest<IEnumerable<signUpResult>>;
 
         public record signUpResult(string Token = "");
 
@@ -42,6 +42,7 @@ namespace Transaction_System.UseCases.UserUseCase.Commands.Authentication
                 {
                     Fullname = command.Name,
                     UserCredential = newUserCredential,
+                    UserType = (UserType)command.Usertype
                    
                 };
 

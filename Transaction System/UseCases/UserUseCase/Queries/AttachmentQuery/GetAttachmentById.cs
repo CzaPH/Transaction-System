@@ -17,6 +17,7 @@ namespace Transaction_System.UseCases.UserUseCase.Queries.AttachmentQuery
             public async Task<IEnumerable<Result>> Handle(Query request, CancellationToken cancellationToken)
             {
                 var results = await context.Attachment
+                    .Where(u => u.IsDeleted == false)
                     .Where(x => x.TransactionId == request.TransactionId)
                     .ToListAsync(cancellationToken);
 
